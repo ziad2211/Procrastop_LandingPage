@@ -5,10 +5,10 @@
 window.APP_CONFIG = {
   name: "Procrastop",
   tagline: "A short sentence explaining what your app helps people do.",
-  description: "Hello Ziad/Use this optional landing page to introduce your app and link to its legal and support pages.",
-  developerName: "Your company or name",
-  supportEmail: "support@example.com",
+  description: "Procrastop is a simple, focused task app designed to help you stop putting things off and start getting things done. Organize your tasks by when they matter, stay focused on what’s next, and let timely reminders keep you moving—without the clutter of complicated productivity systems.",
+  developerName: "Ziad Ismail",
+  supportEmail: "ziadmohofficial@gmail.com",
   appStoreUrl: "#",
   primaryColor: "#5b5ce2",
-  updatedAt: "September 4, 2026"
+  updatedAt: "September 19, 2026"
 };
