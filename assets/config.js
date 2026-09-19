@@ -3,9 +3,9 @@
  * Legal text lives in privacy.html and terms.html and must be written for your app.
  */
 window.APP_CONFIG = {
-  name: "Your App",
+  name: "Procrastop",
   tagline: "A short sentence explaining what your app helps people do.",
-  description: "Use this optional landing page to introduce your app and link to its legal and support pages.",
+  description: "Hello Ziad/Use this optional landing page to introduce your app and link to its legal and support pages.",
   developerName: "Your company or name",
   supportEmail: "support@example.com",
   appStoreUrl: "#",
