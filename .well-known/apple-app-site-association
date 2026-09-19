@@ -1,0 +1,31 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["TA76FKLFG8.com.procrastop.app"],
+        "components": [
+          {
+            "/": "/Procrastop/",
+            "?": { "title": "?*", "due": "?*" },
+            "comment": "Shared task links open Procrastop instead of this website."
+          },
+          {
+            "/": "/Procrastop",
+            "?": { "title": "?*", "due": "?*" },
+            "comment": "Same link written without the trailing slash."
+          },
+          {
+            "/": "/Procrastop/index.html",
+            "?": { "title": "?*", "due": "?*" },
+            "comment": "Same link written with the explicit file name."
+          },
+          {
+            "/": "*",
+            "exclude": true,
+            "comment": "Every other page on this site stays in the browser."
+          }
+        ]
+      }
+    ]
+  }
+}

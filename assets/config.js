@@ -1,11 +1,12 @@
 /*
- * Change this file first. It powers the optional landing page and the footer.
- * Legal text lives in privacy.html and terms.html and must be written for your app.
+ * Shared values for every page on this site. Legal wording lives in
+ * privacy.html and terms.html; this file only fills in the names, contact
+ * address shared by every page.
  */
 window.APP_CONFIG = {
   name: "Procrastop",
-  tagline: "A short sentence explaining what your app helps people do.",
-  description: "Procrastop is a simple, focused task app designed to help you stop putting things off and start getting things done. Organize your tasks by when they matter, stay focused on what’s next, and let timely reminders keep you moving—without the clutter of complicated productivity systems.",
+  tagline: "Every task has a due date, and time sorts the list. Nothing to drag or reorder — you just finish.",
+  description: "Procrastop is a free iPhone to-do list that keeps your tasks ordered by how close their due dates are. Tasks move on their own from Long-Term to Mid-Term to Short-Term as the deadline approaches, Focus Mode keeps the most urgent ones in view, and reminders arrive when something is due. No account, no sign-in, no cloud: everything you create stays on your iPhone.",
   developerName: "Ziad Ismail",
   supportEmail: "ziadmohofficial@gmail.com",
   appStoreUrl: "#",
