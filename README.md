@@ -1,68 +1,64 @@
-# App Legal Pages Template
+# Procrastop website
 
-**Publish a professional privacy policy URL, account-deletion page, support page, FAQ, changelog, and optional mobile app landing page — free, public, and without setting up a website.**
+The marketing and legal site for [Procrastop](https://apps.apple.com/app/id6818837590),
+a free iPhone to-do list. Static HTML, CSS and one small script, served by
+GitHub Pages. No build step and no dependencies.
 
-Built for indie iOS, Android, and web-app makers who need a public legal or support URL for the App Store, Google Play, or their own app. It works directly with **GitHub Pages**: no hosting account, no deployment command, and no web-development experience required.
+## Pages
 
-![Preview of the app legal pages landing page](assets/screenshots/landing-page.jpg)
-
-## What you get
-
-- A simple home page to present your app (optional).
-- A public `privacy.html` page for your privacy policy.
-- A `terms.html` page for your terms of use.
-- A support contact page, FAQ, release changelog, and account-deletion instructions.
-- A mobile-friendly design that works on GitHub Pages and other static hosts.
-- One small configuration file for your app name, email address, App Store link, colour, and last-updated date.
-
-![Preview of the privacy policy page](assets/screenshots/privacy-page.jpg)
-
-## Publish your pages — no-code guide
-
-Allow about 10 minutes for your first setup.
-
-1. On this repository page, click **Use this template** (the green button near the top), then choose a name for your copy.
-2. In your new repository, open `assets/config.js`. Click the pencil icon, replace the example app name, email address, App Store link, colour, and date, then click **Commit changes**.
-3. Open each page you need — especially `privacy.html`, `terms.html`, and `delete-account.html` — and replace every sentence in square brackets (`[LIKE THIS]`) with information that is true for your app.
-4. Open **Settings**, then **Pages**. Under **Build and deployment**, select **Deploy from a branch**, choose `main` and `/(root)`, then save.
-5. Wait one or two minutes. GitHub will show your public address, normally: `https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/`
-6. Your privacy-policy link will be: `https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/privacy.html`
-
-You can edit a page at any time in GitHub: open the file, click the pencil icon, save with **Commit changes**, then wait briefly for the public site to refresh.
-
-## Which pages do I need?
-
-Start with the pages your app actually needs. The home page is optional.
-
-| If you need… | Use this page |
+| File | Purpose |
 | --- | --- |
-| A public privacy-policy URL for an app store | `privacy.html` |
-| A way for users to ask for help | `support.html` |
-| Account deletion instructions | `delete-account.html` |
-| Terms of use | `terms.html` |
-| Answers to common questions | `faq.html` |
-| Release notes | `changelog.html` |
-| A lightweight product site | `index.html` |
+| `index.html` | The marketing home page |
+| `privacy.html` | Privacy Policy, required by the App Store |
+| `terms.html` | Terms of Use |
+| `support.html` | Support contact and troubleshooting |
+| `faq.html` | Longer FAQ |
+| `delete-account.html` | How to remove your data |
+| `changelog.html` | What is in each release |
 
-If you only need a privacy policy, publish the template as-is and share the `privacy.html` link. You do not need to fill in the landing page.
+## Editing
 
-## Before sharing an App Store or Google Play link
+Shared values live in one place, `assets/config.js`: the app name, developer
+name, support email, App Store URL, the colour and the "last updated" date that
+the legal pages print. Change them there and every page follows.
 
-- Open the final URL in a private/incognito browser window.
-- Check that it starts with `https://` and does not require a login.
-- Make sure the text describes your real data collection, sharing, permissions, retention, and account-deletion behaviour.
-- Put the exact `privacy.html` URL in your store listing and inside your app where appropriate.
+Everything else is plain HTML. `assets/styles.css` holds the whole design, and
+`assets/site.js` fills in the config values and fades sections in as they
+scroll into view.
 
-## Make it yours
+## Screenshots
 
-All common details are in `assets/config.js`. The legal and help text stays directly in the relevant page so it is easy to find and edit.
+`assets/screenshots/` holds real captures of the app, not mockups. Replace them
+with new ones when the UI changes, keeping roughly the same aspect ratio so the
+layout holds.
 
-You can also use a custom domain later, for example `legal.yourapp.com`, from **Settings → Pages → Custom domain**.
+## Before publishing
 
-## Important: this is not legal advice
+Two values depend on the final public URL and cannot be filled in from the
+repository alone:
 
-This project gives you a clean public home for your own content. It does **not** write, review, or guarantee a legally compliant privacy policy, terms, or deletion process. Only publish statements that accurately reflect how your app works; seek qualified legal advice when you need it.
+- **`og:image`** in `index.html` is a relative path. Some social platforms
+  require an absolute URL to show a preview card. Change it to the full
+  `https://` address of `assets/screenshots/app-list.png` once the site's URL
+  is settled.
+- **A canonical link** is not set, for the same reason. Add
+  `<link rel="canonical" href="...">` to each page if you want one.
 
-## License
+`.well-known/apple-app-site-association` points at `/Procrastop/`. Confirm that
+matches the path this site is actually served from.
 
-MIT. Replace `[YOUR NAME]` in `LICENSE` before publishing if desired.
+## Accuracy
+
+Every feature claim on this site was written against the app's source. If a
+feature is renamed, removed or disabled in the app, update the copy here too.
+The FAQ and changelog are the two pages that drift first.
+
+## Local preview
+
+```bash
+python3 -m http.server 8099
+```
+
+Then open <http://127.0.0.1:8099/>. Opening the files directly with `file://`
+works too, but relative asset paths behave differently, so the server is more
+faithful to GitHub Pages.
