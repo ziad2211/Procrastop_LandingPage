@@ -30,6 +30,15 @@
     });
   }
 
+  if (config.credits) {
+    if (config.credits.concept) {
+      fill("[data-credit-concept]", function (el) { el.textContent = config.credits.concept; });
+    }
+    if (config.credits.development) {
+      fill("[data-credit-development]", function (el) { el.textContent = config.credits.development; });
+    }
+  }
+
   var tagline = document.querySelector("[data-tagline]");
   if (tagline && config.tagline) tagline.textContent = config.tagline;
 

@@ -251,6 +251,9 @@ img { max-width: 100%; display: block; }
 .footer-links a { color: var(--muted); text-decoration: none; }
 .footer-links a:hover { color: var(--ink); text-decoration: underline; }
 .footer-note { max-width: 42ch; line-height: 1.6; }
+/* Understated by design: a credit, not a headline. */
+.footer-credits { margin: 10px 0 6px; color: var(--muted); font-size: 0.86rem; }
+.footer-credits .sep { color: var(--dim); }
 
 /* ------------------------------------------------------------- typography */
 

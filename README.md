@@ -62,3 +62,11 @@ python3 -m http.server 8099
 Then open <http://127.0.0.1:8099/>. Opening the files directly with `file://`
 works too, but relative asset paths behave differently, so the server is more
 faithful to GitHub Pages.
+
+## Credits
+
+- **Concept:** Samer Morkos
+- **Development:** Ziad Ismail
+
+The footer credit on every page is driven by `credits` in `assets/config.js`.
+The copyright line beside it is separate and names the publisher.

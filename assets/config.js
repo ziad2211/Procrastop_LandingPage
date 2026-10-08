@@ -8,6 +8,13 @@ window.APP_CONFIG = {
   developerName: "Ziad Ismail",
   supportEmail: "ziadmohofficial@gmail.com",
 
+  // Who made the app. Separate from developerName above, which is the
+  // publisher used by the copyright line and the legal pages.
+  credits: {
+    concept: "Samer Morkos",
+    development: "Ziad Ismail"
+  },
+
   // The App Store product page. The numeric id is Procrastop's App Store ID.
   appStoreUrl: "https://apps.apple.com/app/id6818837590",
 
