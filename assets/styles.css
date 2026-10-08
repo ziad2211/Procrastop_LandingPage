@@ -28,6 +28,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -68,22 +69,42 @@ img { max-width: 100%; display: block; }
 
 /* ---------------------------------------------------------------- chrome */
 
+/*
+ * The sticky bar.
+ *
+ * One floating element that holds the brand, the whole navigation and the
+ * download link. Every page renders the same markup, including a link to
+ * itself; the current page is marked with aria-current rather than dropped,
+ * which is what used to make the clicked tab vanish.
+ */
+
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 50;
-  background: rgba(8, 7, 13, 0.76);
-  backdrop-filter: saturate(160%) blur(18px);
-  -webkit-backdrop-filter: saturate(160%) blur(18px);
-  border-bottom: 1px solid var(--line);
+  z-index: 60;
+  padding: 10px 0;
+  /* Clears the notch when the page is saved to the Home Screen. */
+  padding-top: calc(10px + env(safe-area-inset-top, 0px));
 }
 
-.nav {
-  min-height: 62px;
+.navbar {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  gap: 12px;
+  padding: 8px 8px 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  border-curve: continuous;
+  background: rgba(19, 17, 25, 0.78);
+  backdrop-filter: saturate(170%) blur(20px);
+  -webkit-backdrop-filter: saturate(170%) blur(20px);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+/* Lifts off the page once it is actually overlapping content. */
+.site-header.is-stuck .navbar {
+  border-color: var(--line-strong);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
 
 .brand {
@@ -94,33 +115,124 @@ img { max-width: 100%; display: block; }
   font-weight: 760;
   letter-spacing: -0.02em;
   text-decoration: none;
-  font-size: 1.05rem;
-}
-.brand .mark {
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
+  font-size: 1.02rem;
   flex: none;
 }
+.brand .mark { width: 28px; height: 28px; border-radius: 8px; flex: none; }
 
-/* The app icon, shown at the size iOS would draw it. */
-.hero-logo {
-  width: 84px;
-  height: 84px;
-  border-radius: 20px;
-  border-curve: continuous;
-  box-shadow: 0 18px 44px rgba(91, 60, 246, 0.42);
-  margin-bottom: 26px;
-}
+.nav-menu { flex: 1; display: flex; justify-content: flex-end; }
 
 .nav-links {
   display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-  font-size: 0.93rem;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.nav-links a { color: var(--muted); text-decoration: none; }
-.nav-links a:hover { color: var(--ink); }
+.nav-links a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 560;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--ink); background: rgba(255, 255, 255, 0.05); }
+/* The page you are on stays in the list and is marked, never removed. */
+.nav-links a[aria-current="page"] { color: var(--ink); background: var(--accent-soft); }
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  background: linear-gradient(118deg, var(--accent-deep), var(--accent));
+  transition: transform 0.18s ease;
+}
+.nav-cta:hover { transform: translateY(-1px); }
+
+/* Hidden on desktop, where every link already fits. */
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  place-items: center;
+}
+.nav-toggle:hover { border-color: var(--line-strong); }
+.nav-toggle-bars, .nav-toggle-bars::before, .nav-toggle-bars::after {
+  display: block;
+  width: 17px;
+  height: 1.8px;
+  border-radius: 2px;
+  background: currentColor;
+  content: "";
+}
+.nav-toggle-bars { position: relative; }
+.nav-toggle-bars::before { position: absolute; top: -5.5px; }
+.nav-toggle-bars::after { position: absolute; top: 5.5px; }
+
+@media (max-width: 880px) {
+  .brand { margin-right: auto; }
+  .nav-links { flex-direction: column; align-items: stretch; gap: 2px; }
+  .nav-links a { padding: 13px 14px; font-size: 1rem; border-radius: 12px; }
+
+  /*
+   * Without scripting the links simply wrap onto a second row inside the bar,
+   * so the navigation is still complete and reachable. The hamburger is only
+   * shown when there is JavaScript to operate it.
+   */
+  .navbar { flex-wrap: wrap; }
+  .nav-menu { order: 3; flex-basis: 100%; padding-top: 6px; }
+  .nav-toggle { display: none; }
+
+  /* With scripting, the same markup becomes a dropdown panel. */
+  .js .navbar { flex-wrap: nowrap; }
+  .js .nav-toggle { display: grid; }
+  .js .nav-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    order: 0;
+    flex-basis: auto;
+    display: none;
+    padding: 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    border-curve: continuous;
+    /* Solid, not translucent: a blurred panel nested inside the blurred bar
+       composites unreliably, and this sits over body text where legibility
+       matters more than the effect. */
+    background: #16131f;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.66);
+  }
+  .js .nav-menu[data-open="true"] { display: block; }
+}
+
+/* Only the wordmark goes; the icon still identifies the site. */
+@media (max-width: 400px) {
+  .brand span { display: none; }
+  .nav-cta { padding: 0 13px; font-size: 0.88rem; }
+  .navbar { gap: 8px; padding-left: 10px; }
+}
 
 .site-footer {
   border-top: 1px solid var(--line);
@@ -206,7 +318,7 @@ h3 { font-size: 1.18rem; font-weight: 700; letter-spacing: -0.02em; line-height:
 
 /* -------------------------------------------------------------- sections */
 
-section { scroll-margin-top: 80px; }
+section { scroll-margin-top: 96px; }
 .band { padding: clamp(64px, 9vw, 108px) 0; border-top: 1px solid var(--line); }
 
 .stack { display: grid; gap: 18px; }

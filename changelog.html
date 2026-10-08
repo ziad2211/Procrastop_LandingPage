@@ -12,21 +12,40 @@
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/logo.png">
 <link rel="stylesheet" href="assets/styles.css">
+<script>document.documentElement.className += " js";</script>
 </head>
 
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header">
-  <nav class="container nav" aria-label="Primary">
-    <a class="brand" href="index.html"><img class="mark" src="assets/logo.png" alt="" aria-hidden="true" width="26" height="26"><span data-app-name>Procrastop</span></a>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="support.html">Support</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="faq.html">FAQ</a>
-    </div>
-  </nav>
+  <div class="container">
+    <nav class="navbar" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <img class="mark" src="assets/logo.png" alt="" width="28" height="28">
+        <span data-app-name>Procrastop</span>
+      </a>
+
+      <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open navigation menu">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#persistence">Features</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="support.html">Support</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+      </div>
+
+      <a class="nav-cta" data-app-store-link href="https://apps.apple.com/app/id6818837590">
+        Get the App <span aria-hidden="true">&rarr;</span>
+      </a>
+    </nav>
+  </div>
 </header>
 
 <main id="main" class="container">

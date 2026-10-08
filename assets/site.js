@@ -51,6 +51,62 @@
   var year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
 
+  // ------------------------------------------------------------ navigation
+
+  // Mark the page you are on. The link stays in the list either way: this
+  // only labels it, so navigation never loses an entry. Works on a direct
+  // visit and on back/forward, because it reads the address each load.
+  var here = location.pathname.split("/").pop() || "index.html";
+  var navLinks = document.querySelectorAll(".nav-links a");
+  for (var n = 0; n < navLinks.length; n++) {
+    var target = navLinks[n].getAttribute("href").split("#")[0];
+    // "Features" points into the home page, so only the plain Home link
+    // claims index.html as its own.
+    if (target === here && navLinks[n].getAttribute("href").indexOf("#") === -1) {
+      navLinks[n].setAttribute("aria-current", "page");
+    }
+  }
+
+  var toggle = document.getElementById("nav-toggle");
+  var menu = document.getElementById("nav-menu");
+
+  if (toggle && menu) {
+    var setMenu = function (open) {
+      menu.setAttribute("data-open", open ? "true" : "false");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+    };
+    setMenu(false);
+
+    toggle.addEventListener("click", function () {
+      setMenu(menu.getAttribute("data-open") !== "true");
+    });
+
+    // Following a link, pressing Escape or tapping away all close it.
+    menu.addEventListener("click", function (event) {
+      if (event.target.closest("a")) setMenu(false);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape" || menu.getAttribute("data-open") !== "true") return;
+      setMenu(false);
+      toggle.focus();
+    });
+    document.addEventListener("click", function (event) {
+      if (menu.getAttribute("data-open") !== "true") return;
+      if (!event.target.closest(".navbar")) setMenu(false);
+    });
+  }
+
+  // A shadow once the bar is actually over content, nothing while at rest.
+  var header = document.querySelector(".site-header");
+  if (header) {
+    var onScroll = function () {
+      header.classList.toggle("is-stuck", window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
   // Sections fade up once as they arrive. Anyone who has asked for less
   // motion, or whose browser lacks the observer, simply sees them already in
   // place: the CSS handles the first case and this handles the second.
